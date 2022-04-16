@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Department service.
+ */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
