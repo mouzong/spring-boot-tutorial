@@ -1,6 +1,7 @@
 package com.codegrill.Springboot.tutorial.service;
 
 import com.codegrill.Springboot.tutorial.entity.Department;
+import com.codegrill.Springboot.tutorial.error.DepartmentNotFoundException;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface DepartmentService {
      * @param departmentId the department id
      * @return the department
      */
-    public Department fetchDepartmentById(Long departmentId);
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
     /**
      * Delete department by id.

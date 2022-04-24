@@ -1,6 +1,7 @@
 package com.codegrill.Springboot.tutorial.controller;
 
 import com.codegrill.Springboot.tutorial.entity.Department;
+import com.codegrill.Springboot.tutorial.error.DepartmentNotFoundException;
 import com.codegrill.Springboot.tutorial.service.DepartmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class DepartmentController {
      * @return the department
      */
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) {
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         LOGGER.info("You fetched department with ID: - "+departmentId+", Inside fetchDepartmentById of DepartmentController !");
         return departmentService.fetchDepartmentById(departmentId);
     }

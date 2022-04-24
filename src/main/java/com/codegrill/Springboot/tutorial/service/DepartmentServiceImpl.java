@@ -1,12 +1,15 @@
 package com.codegrill.Springboot.tutorial.service;
 
 import com.codegrill.Springboot.tutorial.entity.Department;
+import com.codegrill.Springboot.tutorial.error.DepartmentNotFoundException;
 import com.codegrill.Springboot.tutorial.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The type Department service.
@@ -27,8 +30,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department not available");
+        }
+        return department.get();
     }
 
     @Override
@@ -42,18 +49,18 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department departmentDB = departmentRepository.findById(departmentId).get();
 
 
-        if(Objects.nonNull(department.getDepartmentName()) &&
-                !"".equalsIgnoreCase(department.getDepartmentName())){
+        if (Objects.nonNull(department.getDepartmentName()) &&
+                !"".equalsIgnoreCase(department.getDepartmentName())) {
             departmentDB.setDepartmentName(department.getDepartmentName());
         }
 
-        if(Objects.nonNull(department.getDepartmentCode()) &&
-                !"".equalsIgnoreCase(department.getDepartmentCode())){
+        if (Objects.nonNull(department.getDepartmentCode()) &&
+                !"".equalsIgnoreCase(department.getDepartmentCode())) {
             departmentDB.setDepartmentCode(department.getDepartmentCode());
         }
 
-        if(Objects.nonNull(department.getDepartmentAddress()) &&
-                !"".equalsIgnoreCase(department.getDepartmentAddress())){
+        if (Objects.nonNull(department.getDepartmentAddress()) &&
+                !"".equalsIgnoreCase(department.getDepartmentAddress())) {
             departmentDB.setDepartmentAddress(department.getDepartmentAddress());
         }
         Department updatedDoc = departmentRepository.save(departmentDB);
